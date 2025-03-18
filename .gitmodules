@@ -1,0 +1,6 @@
+[submodule "docs/gloria"]
+	path = docs/gloria
+	url = git@github.com:holdcloud81/docusaurus-gloria.git
+[submodule "docs/guide"]
+	path = docs/guide
+	url = git@github.com:holdcloud81/docusaurus-guide.git
