@@ -41,28 +41,30 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        // docs: {
+        //   sidebarPath: './sidebars.js',
+        //   // Please change this to your repo.
+        //   // Remove this to remove the "edit this page" links.
+        //   editUrl:
+        //     'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        // },
+        // blog: {
+        //   showReadingTime: true,
+        //   feedOptions: {
+        //     type: ['rss', 'atom'],
+        //     xslt: true,
+        //   },
+        //   // Please change this to your repo.
+        //   // Remove this to remove the "edit this page" links.
+        //   editUrl:
+        //     'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        //   // Useful options to enforce blogging best practices
+        //   onInlineTags: 'warn',
+        //   onInlineAuthors: 'warn',
+        //   onUntruncatedBlogPosts: 'warn',
+        // },
+        docs: false, // 플러그인에서 직접 관리        
+        blog: false, // 플러그인에서 직접 관리 
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -70,6 +72,40 @@ const config = {
     ],
   ],
 
+  plugins: [
+    // docs/* 모든 디렉터리 
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'default',
+        path: 'docs',
+        routeBasePath: '/',
+        sidebarPath: './sidebars.js', // 공용 사이드바
+      },
+    ],  
+    
+    //  로컬 검색 docusaurus-lunr-search
+    [
+      require.resolve('docusaurus-lunr-search'),
+      {
+        docsPluginId: 'default', // 위에서 설정한 플러그인 ID
+        languages: ["en", "ko"], //  다국어 검색 가능 (영어, 한국어)
+        includeRoutes: ["/docs/**"],  //  문서 검색 활성화
+        excludeRoutes: ["/blog/"], // `/blog/` 제외
+        //indexBlog: true,  //  블로그 검색 활성화
+        indexBaseUrl: true,
+        assetUrl: "/", //  검색 인덱스를 루트 경로에서 찾도록 설정
+        highlightResult: true, //  검색된 단어를 페이지에서 강조 표시
+        fields: {
+          title: { boost: 200 },   //  제목(title)의 중요도를 가장 높게 설정
+          content: { boost: 100 }, //  본문(content)의 중요도를 중간 정도로 설정
+          keywords: { boost: 50 }  //  키워드의 중요도를 낮게 설정
+        },
+      },
+    ],        
+  ],
+    
+  // 테마 구성
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
