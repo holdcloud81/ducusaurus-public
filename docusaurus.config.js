@@ -79,7 +79,7 @@ const config = {
       {
         id: 'default',
         path: 'docs',
-        routeBasePath: '/',
+        routeBasePath: '/docs', // URL이 /docs 부터 시작
         sidebarPath: './sidebars.js', // 공용 사이드바
       },
     ],  
@@ -90,8 +90,8 @@ const config = {
       {
         docsPluginId: 'default', // 위에서 설정한 플러그인 ID
         languages: ["en", "ko"], //  다국어 검색 가능 (영어, 한국어)
-        includeRoutes: ["/docs/**"],  //  문서 검색 활성화
-        excludeRoutes: ["/blog/"], // `/blog/` 제외
+        includeRoutes: ["/docs/**"],  //  /docs/ 시작
+        excludeRoutes: ["/blog/**"], // `/blog/` 제외
         //indexBlog: true,  //  블로그 검색 활성화
         indexBaseUrl: true,
         assetUrl: "/", //  검색 인덱스를 루트 경로에서 찾도록 설정
@@ -105,83 +105,58 @@ const config = {
     ],        
   ],
     
-  // 테마 구성
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
-      navbar: {
-        title: 'My Site',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+  //  테마 및 UI 설정
+  themeConfig: /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
+    image: "img/docusaurus-social-card.jpg", //  SNS 공유 시 표시될 이미지 설정
+    navbar: {
+      title: "holdCloud Docs",
+      logo: {
+        alt: "My Site Logo",
+        src: "img/logo.svg",
+      },
+      items: [
+        {
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Docs", //  네비게이션 바에서 'Docs'로 표시됨
         },
-        items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
-      },
-    }),
+        {
+          href: "https://github.com/facebook/docusaurus",
+          label: "GitHub",
+          position: "right",
+        },
+      ],
+    },
+    footer: {
+      style: "dark",
+      links: [
+        {
+          title: "Docs",
+          items: [{ label: "Tutorial", to: "/docs/intro" }],
+        },
+        {
+          title: "Community",
+          items: [
+            { label: "Stack Overflow", href: "https://stackoverflow.com/tagged/docusaurus" },
+            { label: "Discord", href: "https://discordapp.com/invite/docusaurus" },
+            { label: "X", href: "https://x.com/docusaurus" },
+          ],
+        },
+        {
+          title: "More",
+          items: [
+            { label: "GitHub", href: "https://github.com/facebook/docusaurus" },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+    },
+    prism: {
+      theme: prismThemes.github, //  코드 블록 기본 테마
+      darkTheme: prismThemes.dracula, //  다크 모드 테마
+    },
+  }),
 };
 
 export default config;
